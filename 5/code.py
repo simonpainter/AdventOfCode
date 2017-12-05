@@ -6,14 +6,12 @@ for line in data:
 
 i=0
 moves=0
-while i>=0 and i<=len(list):
-    #print(list)
-    #print(i)
-    print(moves)
-    if list[i]>=3:
-        list[i]-=1
-        i+=(list[i]+1)
-    else:
-        list[i]+=1
-        i+=(list[i]-1)
-    moves+=1
+while i>=0 and i<len(list):
+	if list[i]>=3:
+		list[i]-=1
+		i+=(list[i]+1)
+	else:
+		list[i]+=1
+		i+=(list[i]-1)
+	moves+=1
+print(moves)
