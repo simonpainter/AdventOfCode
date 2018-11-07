@@ -1,6 +1,6 @@
 pipes = {}
 
-with open ("testinput.txt", "r") as inputfile:
+with open ("input.txt", "r") as inputfile:
     lines=inputfile.readlines()
     for line in lines:
         values = line.split("<->")
@@ -19,11 +19,12 @@ def followpipe(now,pathlist):
             pathlist.append(pipe)
             followpipe(pipe,pathlist)
 
+groups = []
 
+for starters in pipes.keys():
+    pathlist = []
+    followpipe(starters,pathlist)
+    groups.append(sorted(pathlist))
+unique_data = [list(x) for x in set(tuple(x) for x in groups)]
 
-pathlist = []
-prog = 0
-
-followpipe(prog,pathlist)
-
-print(len(pathlist))
+print(len(unique_data))

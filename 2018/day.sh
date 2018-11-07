@@ -2,6 +2,8 @@
 
 mkdir $1
 cd $1
-touch code.py
+touch code1.py
+touch code2.py
 touch input.txt
+touch textinput.txt
 touch problem.txt
