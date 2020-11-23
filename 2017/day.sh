@@ -6,4 +6,3 @@ touch code1.py
 touch code2.py
 touch input.txt
 touch testinput.txt
-touch problem.txt
