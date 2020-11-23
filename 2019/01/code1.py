@@ -7,4 +7,4 @@ for reading in data:
     reading = (int(reading)//3)-2
     total += reading
 
-print total
+print(total)
