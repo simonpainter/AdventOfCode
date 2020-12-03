@@ -1,6 +1,5 @@
 slope = []
 
-
 with open ("input.txt", "r") as inputfile:
 	data=inputfile.readlines()
 
@@ -13,11 +12,8 @@ def checkslope(downnum, acrossnum,slope):
 	for i in range(0,int((len(slope)-1)/downnum)):
 		down +=downnum
 		across +=acrossnum
-		if across >= len(slope[0]):
-			across -= len(slope[0])
-		if slope[down][across] == '#':
+		if slope[down][across % len(slope[down])] == '#':
 			count += 1
 	return count
-
 
 print(checkslope(1,1,slope)*checkslope(1,3,slope)*checkslope(1,5,slope)*checkslope(1,7,slope)*checkslope(2,1,slope))
