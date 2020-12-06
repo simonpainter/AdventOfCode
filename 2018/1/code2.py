@@ -7,7 +7,7 @@ while stop:
     for instruction in data:
         frequency += int(instruction)
         if frequency in frequencies:
-            print frequency
+            print(frequency)
             stop = 0
             break
         else:

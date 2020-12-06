@@ -5,4 +5,4 @@ total = 0
 for instruction in data:
     total += int(instruction)
 
-print total
+print(total)
