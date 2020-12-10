@@ -2,7 +2,6 @@
 
 mkdir $1
 cd $1
-touch code1.py
-touch code2.py
+cp ../template.py code.py
 touch input.txt
 touch testinput.txt
