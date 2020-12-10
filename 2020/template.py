@@ -1,12 +1,14 @@
-import re, itertools
+import re, itertools, math
 
 with open ("testinput.txt", "r") as inputfile:
 	data = inputfile.read()
 	lines = data.split('\n')
 	groups = data.split('\n\n')
 
-input = data
-
+input = []
+for line in lines:
+	#input.append(int(line))
+	#input.append(line.split(' '))
 
 def part1(input):
 	pass
