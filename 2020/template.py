@@ -6,9 +6,12 @@ with open ("testinput.txt", "r") as inputfile:
 	groups = data.split('\n\n')
 
 input = []
-for line in lines:
+#for line in lines:
 	#input.append(int(line))
 	#input.append(line.split(' '))
+#for group in groups:
+	#input.append(group.replace("\n", "")
+	#input.append(group.split(' '))
 
 def part1(input):
 	pass

@@ -1,4 +1,6 @@
 import re, itertools, math, hashlib
+import os
+os.system('clear')
 
 input = 'cxdnnyjw'
 #input = 'abc'
