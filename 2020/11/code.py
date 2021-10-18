@@ -74,7 +74,7 @@ def part2(input):
 					if count_seats_2(x, y, old) == 0:
 						new[y][x] = '#'
 				elif old[y][x] == '#':
-					if count_seats_2(x, y, old) >= 4:
+					if count_seats_2(x, y, old) >= 5:
 						new[y][x] = 'L'
 	answer = 0
 	for row in new:
