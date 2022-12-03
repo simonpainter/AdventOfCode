@@ -1,4 +1,5 @@
-import re, itertools, math,os,sys,time
+import re, itertools, math,os,sys,string,time
+
 
            
 pathname = os.path.dirname(sys.argv[0])        
@@ -13,34 +14,49 @@ def parse_input(path):
 		lines = data.split('\n')
 		groups = data.split('\n\n')
 
-	input = []
+	input = lines
 	#for line in lines:
 		#input.append(int(line))
 		#input.append(line.split(' '))
-	for group in groups:
-		lines = group.split('\n')
-		elf = []
-		for item in lines:
-			elf.append(int(item))
-		input.append(elf)
+	#for group in groups:
+		#input.append(group.replace("\n", "")
+		#input.append(group.split(' '))
 	return input
-
 def part1(input):
-	totals = []
-	for elf in input:
-		totals.append(sum(elf))
-	return max(totals)
+	anomalies = []
+	total = 0
+	for bag in input:
+		compartments = [bag[:len(bag)//2],bag[len(bag)//2:]]
+		result = ''
+		for char in compartments[0]:
+			if char in compartments[1] and not char in result:
+				result+=char
+		anomalies.append(result)
+	for each in anomalies:
+		total += (string.ascii_letters.find(each) + 1)
+	return total
+
+
 
 def part2(input):
-	totals = []
-	for elf in input:
-		totals.append(sum(elf))
-	totals.sort()
-	return sum(totals[-3:])
+	elf_groups = []
+	badges = []
+	total = 0
+	for i in range(0, len(input), 3):
+		elf_groups.append(input[i:i + 3])
+	for elf_group in elf_groups:
+		common = set.intersection(*map(set,elf_group))
+		badges.append(list(common)[0])
+	for each in badges:
+		total += (string.ascii_letters.find(each) + 1)
+	return total		
 
-testresult_part1 = 24000
-testresult_part2 = 45000
 
+
+
+
+testresult_part1 = 157
+testresult_part2 = 70
 
 if testresult_part1 == part1(parse_input(testinput_path)):
 	print("*** Part 1 Test Passed ***")

@@ -1,4 +1,4 @@
-import re, itertools, math,os,sys
+import re, itertools, math,os,sys,time
 
            
 pathname = os.path.dirname(sys.argv[0])        
@@ -72,18 +72,27 @@ def part2(input):
 testresult_part1 = 15
 testresult_part2 = 12
 
+
 if testresult_part1 == part1(parse_input(testinput_path)):
 	print("*** Part 1 Test Passed ***")
-	print("----Part 1 Result ", part1(parse_input(input_path)))
+	start = time.time()
+	print("----Part 1 Result: ", part1(parse_input(input_path)))
+	end = time.time()
+	print("====Part 1 Time ", end - start)
+
 else:
 	print("Part 1 Test Failed")
-	print("Part 1 Test Result", part1(parse_input(testinput_path)))
+	print("Part 1 Test Result: ", part1(parse_input(testinput_path)))
 	print("Expected ", testresult_part1)
 	
 if testresult_part2 == part2(parse_input(testinput_path)):
 	print("*** Part 2 Test Passed ***")
-	print("----Part 2 Result ", part2(parse_input(input_path)))
+	start = time.time()
+	print("----Part 2 Result: ", part2(parse_input(input_path)))
+	end = time.time()
+	print("====Part 1 Time ", end - start)
+
 else:
 	print("Part 2 Test Failed")
-	print("Part 2 Test Result", part2(parse_input(testinput_path)))
+	print("Part 2 Test Result: ", part2(parse_input(testinput_path)))
 	print("Expected ", testresult_part2)
