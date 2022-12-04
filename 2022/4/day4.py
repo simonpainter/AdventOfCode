@@ -11,24 +11,31 @@ def parse_input(path):
 	with open (path, "r") as inputfile:
 		data = inputfile.read()
 		lines = data.split('\n')
+	
 	input = []
+
 	for line in lines:
-		input.append(line.split(','))
+		pairs = []
+		pair = line.split(',')
+		for each in pair:
+			each = each.split('-')
+			each = list(map(int,each))
+			pairs.append(each)
+		input.append(pairs)
 	return input
 
 def part1(input):
 	total = 0
 	for pair in input:
-		pair = list(map(methodcaller("split",('-')),pair))
-		if int(pair[0][0]) <= int(pair[1][0]) and int(pair[0][1]) >= int(pair[1][1]) or int(pair[1][0]) <= int(pair[0][0]) and int(pair[1][1]) >= int(pair[0][1]):
+		if set(range(pair[0][0],pair[0][1]+1)).issubset(range(pair[1][0],pair[1][1]+1)) \
+		or set(range(pair[1][0],pair[1][1]+1)).issubset(range(pair[0][0],pair[0][1]+1)):
 			total += 1
 	return total
 
 def part2(input):
 	total = 0
 	for pair in input:
-		pair = list(map(methodcaller("split",('-')),pair))
-		if set(range(int(pair[0][0]),int(pair[0][1])+1)) & set(range(int(pair[1][0]),int(pair[1][1])+1)):
+		if set(range(pair[0][0],pair[0][1]+1)) & set(range(pair[1][0],pair[1][1]+1)):
 			total += 1
 	return total
 
