@@ -19,7 +19,6 @@ def part1(input):
 	anomalies = []
 	for bag in input:
 		compartments = [bag[:len(bag)//2],bag[len(bag)//2:]]
-		result = ''
 		result = set(compartments[0]) & set(compartments[1])
 		anomalies.append(result.pop())
 	return sum([(string.ascii_letters.find(each) + 1) for each in anomalies])

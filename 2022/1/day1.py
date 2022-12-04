@@ -26,17 +26,10 @@ def parse_input(path):
 	return input
 
 def part1(input):
-	totals = []
-	for elf in input:
-		totals.append(sum(elf))
-	return max(totals)
+	return max(list(map(sum,input)))
 
 def part2(input):
-	totals = []
-	for elf in input:
-		totals.append(sum(elf))
-	totals.sort()
-	return sum(totals[-3:])
+	return sum(sorted(list(map(sum,input)))[-3:])
 
 testresult_part1 = 24000
 testresult_part2 = 45000
