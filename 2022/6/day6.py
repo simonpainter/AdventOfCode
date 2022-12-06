@@ -24,15 +24,14 @@ def parse_input(path):
 
 def part1(input):
 	for i in range (4,len(input)+1):
-		if list(sorted(set(input[i-4:i])))==list(sorted(input[i-4:i])):
+		if len(set(input[i-4:i]))==len(input[i-4:i]):
 			return i
-
 def part2(input):
 	for i in range (14,len(input)+1):
-		if list(sorted(set(input[i-14:i])))==list(sorted(input[i-14:i])):
+		if len(set(input[i-14:i]))==len(input[i-14:i]):
 			return i
 
-testresult_part1 = 5
+testresult_part1 = 7
 testresult_part2 = 19
 
 
