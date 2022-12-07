@@ -17,9 +17,21 @@ for year in range(2015,2023):
 	plot_list.reverse()
 	plot_data[year] = plot_list
 
+
 for year, stars in plot_data.items():
-    plt.plot(range(1, len(stars) + 1), stars, '.-', label=year)
+
+	plt.plot(range(1, len(stars) + 1), stars, '.-', label=year)
 plt.xlabel('Day')
-plt.ylabel('Total Stars')
-plt.legend()  
+plt.ylabel('Total stars')
+plt.legend() 
+plt.show()
+
+for year, stars in plot_data.items():
+	percentages = []
+	for star in stars:
+		percentages.append(star/stars[0]*100)
+	plt.plot(range(1, len(percentages) + 1), percentages, '.-', label=year)
+plt.xlabel('Day')
+plt.ylabel('Total stars expressed as % of day one stars')
+plt.legend() 
 plt.show()
