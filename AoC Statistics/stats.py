@@ -17,9 +17,9 @@ for year in range(2015,2023):
 	plot_list.reverse()
 	plot_data[year] = plot_list
 
+plot_data[2022].pop()
 
 for year, stars in plot_data.items():
-
 	plt.plot(range(1, len(stars) + 1), stars, '.-', label=year)
 plt.xlabel('Day')
 plt.ylabel('Total stars')
