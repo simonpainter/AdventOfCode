@@ -13,23 +13,57 @@ def parse_input(path):
 		lines = data.split('\n')
 		groups = data.split('\n\n')
 
-	input = []
+	input = lines
 	#for line in lines:
 		#input.append(int(line))
-		#input.append(line.split(' '))
+		#input.append(line)
 	#for group in groups:
 		#input.append(group.replace("\n", "")
 		#input.append(group.split(' '))
 	return input
 
 def part1(input):
-	pass
+	forest = [[int(tree) for tree in line.strip()] for line in input]
+	forest_rotated = list(zip(*forest))
+
+	seen = 0
+	for y in range(len(forest[0])):
+		for x in range(len(forest)):
+			tree = forest[y][x]
+			if all(look < tree for look in forest[y][0:x]) or \
+				all(look < tree for look in forest[y][x+1:]) or \
+            	all(look < tree for look in forest_rotated[x][0:y]) or \
+            	all(look < tree for look in forest_rotated[x][y+1:]):
+				seen += 1
+
+	return(seen)
+
+def view_dist(my_tree, view):
+    view_dist = 0
+    for tree in view:
+        view_dist += 1
+        if tree >= my_tree:
+            break
+    return view_dist
 
 def part2(input):
-	pass
+	forest = [[int(tree) for tree in line.strip()] for line in input]
+	forest_rotated = list(zip(*forest))
+	seen = 0
+	for y in range(len(forest[0])):
+		for x in range(len(forest)):
+			tree = forest[y][x]
+			sx1 = view_dist(tree, forest[y][0:x][::-1])
+			sx2 = view_dist(tree, forest[y][x+1:])
+			sy1 = view_dist(tree, forest_rotated[x][0:y][::-1])
+			sy2 = view_dist(tree, forest_rotated[x][y+1:])
+			score = sx1 * sx2 * sy1 * sy2
+			if score > seen:
+				seen = score
+	return(seen)
 
-testresult_part1 = 16
-testresult_part2 = 0
+testresult_part1 = 21
+testresult_part2 = 8
 
 
 if testresult_part1 == part1(parse_input(testinput_path)):

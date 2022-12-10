@@ -22,9 +22,8 @@ def parse_input(path):
 		#input.append(group.split(' '))
 	return input
 
-def part1(input):
+def run_cycles(input):
 	cycles = []
-	registers = [20, 60, 100, 140, 180, 220]
 	value = 1
 	for line in input:
 		extract = re.findall(r'(-?\d+)',line)
@@ -34,29 +33,24 @@ def part1(input):
 			value += int(extract[0])
 		else:
 			cycles.append(value)
+	return cycles
+
+def part1(input):
+	cycles = run_cycles(input)
+	registers = [20, 60, 100, 140, 180, 220]
 	output = 0
 	for register in registers:
 		output += register * cycles[register-1]
 	return output
 def part2(input):
-	cycles = []
-	value = 1
-	for line in input:
-		extract = re.findall(r'(-?\d+)',line)
-		if extract:
-			cycles.append(value)
-			cycles.append(value)
-			value += int(extract[0])
-		else:
-			cycles.append(value)
-	
+	cycles = run_cycles(input)
 	output = []
 	for row in range(0,6):
 		sprite = ''
 		for column in range(0,40):
 			i = (row * 40) + column
 			if cycles[i]-1 <= column <= cycles[i]+1:
-				sprite+='#'
+				sprite+='\u2588'
 			else:
 				sprite+=' '
 		print (str(sprite))
