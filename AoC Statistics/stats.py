@@ -42,6 +42,3 @@ plt.xlabel('Day')
 plt.ylabel('Total stars expressed as % of day one stars')
 plt.legend() 
 plt.show()
-
-
-print(json.dumps(data))
