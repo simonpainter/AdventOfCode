@@ -20,14 +20,14 @@ for year in range(2015,2025):
 plot_data[2022].pop()
 
 colour = {2015: "#FFC20A",2016: "#994F00",2017: "#E1BE6A",2018: "#E66100",2019: "#1AFF1A",2020: "#1A85FF",2021: "#005AB5",2022: "#FF0000", 2023: "#FF0000",2024:"#000000"}
-greyscale = {2016: "#eeeeee",2016: "#dddddd",2017: "#cccccc",2018: "#aaaaaa",2019: "#888888",2020: "#666666",2021: "#444444",2022: "#222222",2023: "#111111",2024:"#000000"}
+greyscale = {2015: "#eeeeee",2016: "#dddddd",2017: "#cccccc",2018: "#aaaaaa",2019: "#888888",2020: "#666666",2021: "#444444",2022: "#222222",2023: "#111111",2024:"#000000"}
 
 line_marker = {2015: ".-",2016: ".-",2017: ".-",2018: ".-",2019: ".-",2020: ".-",2021: ".-",2022: ".-",2023:".-",2024:"*-"}
 
 
 
 for year, stars in plot_data.items():
-	plt.plot(range(1, len(stars) + 1), stars, line_marker[year], label=year, c=colour[year])
+	plt.plot(range(1, len(stars) + 1), stars, line_marker[year], label=year, c=greyscale[year])
 plt.xlabel('Day')
 plt.ylabel('Total stars')
 plt.legend() 
@@ -37,7 +37,7 @@ for year, stars in plot_data.items():
 	percentages = []
 	for star in stars:
 		percentages.append(star/stars[0]*100)
-	plt.plot(range(1, len(percentages) + 1), percentages, line_marker[year], label=year, c=colour[year])
+	plt.plot(range(1, len(percentages) + 1), percentages, line_marker[year], label=year, c=greyscale[year])
 plt.xlabel('Day')
 plt.ylabel('Total stars expressed as % of day one stars')
 plt.legend() 
