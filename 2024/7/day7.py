@@ -19,81 +19,91 @@ def parse_input(path):
         numbers = [int(x) for x in numbers.split()]
         input.append((int(test_value), numbers))
     return input
-
-def evaluate_expression_p1(numbers, operators):
-    """Evaluate expression left to right with only + and * operators"""
-    result = numbers[0]
-    for i, op in enumerate(operators):
-        if op == '+':
-            result += numbers[i + 1]
-        else:  # op == '*'
-            result *= numbers[i + 1]
-    return result
-
-def can_make_value_p1(target, numbers):
-    """Check if target can be made with any combination of + and * operators"""
-    if len(numbers) == 1:
-        return target == numbers[0]
+def parse_input(path):
+    with open(path, "r") as inputfile:
+        data = inputfile.read()
+        lines = data.split('\n')
     
-    # Generate all possible combinations of + and * operators
-    n_operators = len(numbers) - 1
-    for ops in itertools.product(['+', '*'], repeat=n_operators):
-        if evaluate_expression_p1(numbers, ops) == target:
-            return True
-    return False
-
-
-def evaluate_expression_p2(numbers, operators):
-    result = numbers[0]
-    for i, op in enumerate(operators):
-        if op == '+':
-            result += numbers[i + 1]
-        elif op == '*':
-            result *= numbers[i + 1]
-        else:  # op == '||'
-            result = int(str(result) + str(numbers[i + 1]))
-    return result
-
-def can_make_value_p2(target, numbers):
-    if len(numbers) == 1:
-        return target == numbers[0]
-    
-    n_operators = len(numbers) - 1
-    for ops in itertools.product(['+', '*', '||'], repeat=n_operators):
-        result = numbers[0]
-        for i, op in enumerate(ops):
-            if op == '+':
-                result += numbers[i + 1]
-                if result > target and '||' not in ops[i+1:]:  # Early exit if we exceed target and no concatenation ahead
-                    break
-            elif op == '*':
-                result *= numbers[i + 1]
-                if result > target and '||' not in ops[i+1:]:  # Early exit if we exceed target and no concatenation ahead
-                    break
-            else:  # op == '||'
-                result = int(str(result) + str(numbers[i + 1]))
-                
-        if result == target:  # Early return on first match
-            return True
-            
-    return False
-
-
-
+    input = []
+    for line in lines:
+        if not line: continue
+        test_value, numbers = line.split(': ')
+        numbers = [int(x) for x in numbers.split()]
+        input.append((int(test_value), numbers))
+    return input
 
 def part1(input):
     total = 0
+    
     for target, numbers in input:
-        if can_make_value_p1(target, numbers):
-            total += target
+        if len(numbers) == 1:
+            if target == numbers[0]:
+                total += target
+            continue
+            
+        found = False
+        n_operators = len(numbers) - 1
+        
+        for ops in itertools.product(['+', '*'], repeat=n_operators):
+            result = numbers[0]
+            for i, op in enumerate(ops):
+                if op == '+':
+                    result += numbers[i + 1]
+                else:
+                    result *= numbers[i + 1]
+                    
+                if result > target:  # Early exit if we exceed target
+                    break
+                    
+            if result == target:  # Early return on first match
+                total += target
+                found = True
+                break
+                
+    return total
+
+def part2(input):
+    total = 0
+    
+    for target, numbers in input:
+        if len(numbers) == 1:
+            if target == numbers[0]:
+                total += target
+            continue
+            
+        n_operators = len(numbers) - 1
+        found = False
+        
+        for ops in itertools.product(['+', '*', '||'], repeat=n_operators):
+            result = numbers[0]
+            valid = True
+            
+            for i, op in enumerate(ops):
+                if not valid:
+                    break
+                    
+                if op == '+':
+                    result += numbers[i + 1]
+                    # Only exit early if no concatenation is possible later
+                    if result > target and '||' not in ops[i+1:]:
+                        valid = False
+                        
+                elif op == '*':
+                    result *= numbers[i + 1]
+                    # Only exit early if no concatenation is possible later
+                    if result > target and '||' not in ops[i+1:]:
+                        valid = False
+                        
+                else:  # op == '||'
+                    result = int(str(result) + str(numbers[i + 1]))
+            
+            if valid and result == target:
+                total += target
+                break  # Found a valid combination, move to next target
+                
     return total
 
 
-def part2(input):
-    return sum(target for target, numbers in input if can_make_value_p2(target, numbers))
-
-
-# Set test results based on examples
 testresult_part1 = 3749
 testresult_part2 = 11387
 
