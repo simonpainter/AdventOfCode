@@ -19,18 +19,8 @@ def parse_input(path):
         numbers = [int(x) for x in numbers.split()]
         input.append((int(test_value), numbers))
     return input
-def parse_input(path):
-    with open(path, "r") as inputfile:
-        data = inputfile.read()
-        lines = data.split('\n')
-    
-    input = []
-    for line in lines:
-        if not line: continue
-        test_value, numbers = line.split(': ')
-        numbers = [int(x) for x in numbers.split()]
-        input.append((int(test_value), numbers))
-    return input
+
+
 
 def part1(input):
     total = 0
@@ -41,7 +31,6 @@ def part1(input):
                 total += target
             continue
             
-        found = False
         n_operators = len(numbers) - 1
         
         for ops in itertools.product(['+', '*'], repeat=n_operators):
@@ -52,12 +41,8 @@ def part1(input):
                 else:
                     result *= numbers[i + 1]
                     
-                if result > target:  # Early exit if we exceed target
-                    break
-                    
-            if result == target:  # Early return on first match
+            if result == target:
                 total += target
-                found = True
                 break
                 
     return total
@@ -72,37 +57,23 @@ def part2(input):
             continue
             
         n_operators = len(numbers) - 1
-        found = False
         
         for ops in itertools.product(['+', '*', '||'], repeat=n_operators):
             result = numbers[0]
-            valid = True
             
             for i, op in enumerate(ops):
-                if not valid:
-                    break
-                    
                 if op == '+':
                     result += numbers[i + 1]
-                    # Only exit early if no concatenation is possible later
-                    if result > target and '||' not in ops[i+1:]:
-                        valid = False
-                        
                 elif op == '*':
                     result *= numbers[i + 1]
-                    # Only exit early if no concatenation is possible later
-                    if result > target and '||' not in ops[i+1:]:
-                        valid = False
-                        
                 else:  # op == '||'
                     result = int(str(result) + str(numbers[i + 1]))
             
-            if valid and result == target:
+            if result == target:
                 total += target
-                break  # Found a valid combination, move to next target
+                break
                 
     return total
-
 
 testresult_part1 = 3749
 testresult_part2 = 11387
