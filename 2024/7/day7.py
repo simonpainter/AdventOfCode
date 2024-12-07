@@ -1,4 +1,4 @@
-import re, itertools, math,os,sys,string,time
+import re, itertools, math,os,sys,string,time,functools
 
            
 pathname = os.path.dirname(sys.argv[0])        
@@ -20,7 +20,6 @@ def parse_input(path):
         input.append((int(test_value), numbers))
     return input
 
-# Part 1 functions - only + and *
 def evaluate_expression_p1(numbers, operators):
     """Evaluate expression left to right with only + and * operators"""
     result = numbers[0]
@@ -43,16 +42,8 @@ def can_make_value_p1(target, numbers):
             return True
     return False
 
-def part1(input):
-    total = 0
-    for target, numbers in input:
-        if can_make_value_p1(target, numbers):
-            total += target
-    return total
 
-# Part 2 functions - including concatenation operator ||
 def evaluate_expression_p2(numbers, operators):
-    """Evaluate expression left to right with +, *, and || operators"""
     result = numbers[0]
     for i, op in enumerate(operators):
         if op == '+':
@@ -64,23 +55,43 @@ def evaluate_expression_p2(numbers, operators):
     return result
 
 def can_make_value_p2(target, numbers):
-    """Check if target can be made with any combination of +, *, and || operators"""
     if len(numbers) == 1:
         return target == numbers[0]
     
-    # Generate all possible combinations of +, *, and || operators
     n_operators = len(numbers) - 1
     for ops in itertools.product(['+', '*', '||'], repeat=n_operators):
-        if evaluate_expression_p2(numbers, ops) == target:
+        result = numbers[0]
+        for i, op in enumerate(ops):
+            if op == '+':
+                result += numbers[i + 1]
+                if result > target and '||' not in ops[i+1:]:  # Early exit if we exceed target and no concatenation ahead
+                    break
+            elif op == '*':
+                result *= numbers[i + 1]
+                if result > target and '||' not in ops[i+1:]:  # Early exit if we exceed target and no concatenation ahead
+                    break
+            else:  # op == '||'
+                result = int(str(result) + str(numbers[i + 1]))
+                
+        if result == target:  # Early return on first match
             return True
+            
     return False
 
-def part2(input):
+
+
+
+def part1(input):
     total = 0
     for target, numbers in input:
-        if can_make_value_p2(target, numbers):
+        if can_make_value_p1(target, numbers):
             total += target
     return total
+
+
+def part2(input):
+    return sum(target for target, numbers in input if can_make_value_p2(target, numbers))
+
 
 # Set test results based on examples
 testresult_part1 = 3749
