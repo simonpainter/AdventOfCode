@@ -8,6 +8,6 @@ for input in inputrange:
     sorted_list.sort()
     if (sorted_list == input) and (list(set(input)) != input):
         output.append(input)
-        print input
+        print (input)
 
-print len(output)
+print(len(output))
