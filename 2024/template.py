@@ -1,8 +1,6 @@
 import re, itertools, math, os, sys, string, time
 import collections, heapq, functools
-import numpy as np
-import networkx as nx
-from typing import List, Dict, Set, Tuple
+
            
 pathname = os.path.dirname(sys.argv[0])        
 testinput_path1 = pathname + "/testinput1.txt"   
