@@ -63,7 +63,7 @@ def part2(input):
     match_length = 1
     
     while match_length <= len(target_digits):
-        output = run_program(program, a, 0, 0)
+        output = run_program(program, a, registers['B'], registers['C'])
         output_digits = output.split(',')
         
         if output_digits[-match_length:] == target_digits[-match_length:]:
