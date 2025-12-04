@@ -24,22 +24,39 @@ def parse_input(path):
 		#input.append(group.split(' '))
 	return input
 
+
 def part1(input):
 	total = 0
 	formatted = []
+	length = 1
 	for line in input:
+		battery = []
 		list_line = list(map(int,list(line)))
-		formatted.append(list_line)
-		tens = max(list_line[:-1])
-		units = max(list_line[list_line.index(tens)+1:])
-		total += int(str(tens) + str(units))
+		for index in range(length, -1, -1):
+			unit = max(list_line[:-index]) if index != 0 else max(list_line)
+			battery.append(unit)
+			list_line = list_line[list_line.index(unit) + 1 :]
+		joltage = int(''.join(map(str, battery)))
+		total += joltage
 	return total
 
 def part2(input):
-	pass
+	total = 0
+	formatted = []
+	length = 11
+	for line in input:
+		battery = []
+		list_line = list(map(int,list(line)))
+		for index in range(length, -1, -1):
+			unit = max(list_line[:-index]) if index != 0 else max(list_line)
+			battery.append(unit)
+			list_line = list_line[list_line.index(unit) + 1 :]
+		joltage = int(''.join(map(str, battery)))
+		total += joltage
+	return total
 
 testresult_part1 = 357
-testresult_part2 = 0
+testresult_part2 = 3121910778619
 
 
 if testresult_part1 == part1(parse_input(testinput_path1)):
